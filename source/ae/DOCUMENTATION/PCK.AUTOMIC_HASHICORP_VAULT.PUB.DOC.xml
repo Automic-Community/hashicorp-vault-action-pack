@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
+<DOCU name="PCK.AUTOMIC_HASHICORP_VAULT.PUB.DOC">
+<HEADER state="1">
+<Title>Pack Documentation</Title>
+<ArchiveKey1/>
+<ArchiveKey2/>
+<OH_SubType/>
+</HEADER>
+<DOCU_Docu state="1" type="text">
+<DOC><![CDATA[About the Package
+HashiCorp Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Action pack is used to fetch Secrets
+of credentials stored on Hashicorp vault for AWS and KV Engine.
+
+=Setup=
+* This Action pack supports Windows and UNIX Agent.
+* Vault command line interface should be available on agent OS and set as executable in PATH environment variable.
+* Oracle JRE 1.7 or higher version should be installed on agent OS.
+* Java executable should be set in the PATH environment variable on agent OS.  
+* To run the action on Windows, Power shell 4.0 or higher version should be installed.
+ 
+
+=Common Inputs=
+Vault Base URL*: Provide Vault Base URL to connect. E.g. https://10.243.44.110:8200/
+Username:        Provide Username to authenticate. E.g. User1
+Password:        Provide Password to authenticate.
+Token:           Provide token to authenticate on Vault.
+HTTP Options:    Specify one ore more following options for this parameter if you want to use certificates. 
+                 Multiple options can be provided using space separator. E.g. -ca-cert=/opt/vault/ca-cert.pem -client-cert=/opt/vault/client.pem
+                 -ca-cert=<string>  Path on the Agent OS to a single PEM-encoded CA certificate to verify the Vault server's SSL certificate.
+                 -ca-path=<string>  Path on the Agent OS to a directory of PEM-encoded CA certificates to verify the Vault server's SSL
+                                    certificate.
+                 -client-cert=<string> Path on the Agent OS to a single PEM-encoded CA certificate to use for TLS authentication to the 
+                                       Vault server. If this is specified -client-key is also required.
+                 -client-key=<string>  Path on the Agent OS to a single PEM-encoded private key matching the client certificate 
+                                       from -client-cert.
+                -tls-server-name=<string> Name to use as the SNI host when connecting to the Vault server via TLS.
+                -tls-skip-verify Disable verification of TLS certificates.
+                 
+
+
+=Note=
+- Please provide either Token or Username and Password to connect the vault.
+
+=Actions=
+Following actions are supported.
+
+* Action name: PCK.AUTOMIC_HASHICORP_VAULT.PUB.ACTION.GET_AWS_SECRET
+* Action Description: This action is used to retrieve Access Key and Secret Key from Hashicorp Vault using AWS secret engine.
+
+* Action name: PCK.AUTOMIC_HASHICORP_VAULT.PUB.ACTION.GET_KV_SECRET
+* Action Description: This action fetches the Value corresponding to Key of a secret from Hashicorp Vault using KV secret engine.
+
+]]></DOC>
+</DOCU_Docu>
+</DOCU>
+</uc-export>

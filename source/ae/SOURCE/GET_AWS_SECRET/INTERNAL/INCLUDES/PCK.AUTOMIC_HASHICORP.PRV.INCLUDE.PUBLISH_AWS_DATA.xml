@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
+<JOBI name="PCK.AUTOMIC_HASHICORP.PRV.INCLUDE.PUBLISH_AWS_DATA">
+<HEADER state="1">
+<Title>Publish Data</Title>
+<ArchiveKey1/>
+<ArchiveKey2/>
+<OH_SubType/>
+</HEADER>
+<SCRIPT mode="1" state="1">
+<MSCRI><![CDATA[: SET &STATUS# = GET_UC_OBJECT_STATUS(,,"RETCODE")
+: SET &UC4RB_ACCESS_KEY# = ""
+: SET &UC4RB_SECRET_KEY# = ""
+
+: IF &STATUS# EQ 0
+
+:   SET &HND# = PREP_PROCESS_REPORT("JOBS",, "REP","UC4RB_*","COL=DELIMITER", 'DELIMITER=*::=*')
+:   PROCESS &HND#
+:     SET &KEY# = GET_PROCESS_LINE(&HND#,1)
+:     SET &VALUE# = GET_PROCESS_LINE(&HND#,2)
+:     IF &KEY# EQ "UC4RB_ACCESS_KEY"
+:         SET &UC4RB_ACCESS_KEY# = &VALUE#
+:     ENDIF
+:     IF &KEY# EQ "UC4RB_SECRET_KEY"
+:         SET &UC4RB_SECRET_KEY# = &VALUE#
+:     ENDIF
+:   ENDPROCESS
+:   CLOSE_PROCESS &HND#
+
+: PUBLISH &UC4RB_ACCESS_KEY#,,WORKFLOW
+: PUBLISH &UC4RB_SECRET_KEY#,,WORKFLOW
+
+: ENDIF]]></MSCRI>
+</SCRIPT>
+<DOCU_Docu state="1" type="text">
+<DOC/>
+</DOCU_Docu>
+</JOBI>
+</uc-export>

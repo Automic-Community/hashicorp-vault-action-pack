@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
+<JOBI name="PCK.AUTOMIC_HASHICORP_VAULT.PUB.INCLUDE.INPUT_VALIDATION">
+<HEADER state="1">
+<Title>Validate Input</Title>
+<ArchiveKey1/>
+<ArchiveKey2/>
+<OH_SubType/>
+</HEADER>
+<SCRIPT mode="1" state="1">
+<MSCRI><![CDATA[!  Validating Input
+:  SET &COUNT# = 0
+:  IF &UC4RB_VAULT_TOKEN# NE "--10" OR ""
+:      SET &COUNT# = &COUNT# + 2
+:  ENDIF
+
+:  IF &UC4RB_VAULT_USER# NE ""
+:      SET &COUNT# = &COUNT# + 1
+:  ENDIF
+
+:  IF &UC4RB_VAULT_PASWD# NE "--10" OR ""
+:      SET &COUNT# = &COUNT# + 1
+:  ENDIF
+
+:  IF &COUNT# NE 2
+:      STOP MSG, 50, "Please provide either Username and Password or Token for authentication."
+:  ENDIF]]></MSCRI>
+</SCRIPT>
+<DOCU_Docu state="1" type="text">
+<DOC/>
+</DOCU_Docu>
+</JOBI>
+</uc-export>

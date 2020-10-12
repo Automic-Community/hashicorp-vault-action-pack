@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
+<JOBI name="PCK.AUTOMIC_HASHICORP_VAULT.PUB.INCLUDE.HANDLE_VAULT_CONNECTION@WIN">
+<HEADER state="1">
+<Title>Handle Vault Connection</Title>
+<ArchiveKey1/>
+<ArchiveKey2/>
+<OH_SubType/>
+</HEADER>
+<SCRIPT mode="1" state="1">
+<MSCRI><![CDATA[!  SET Vault Address
+$env:VAULT_ADDR='&UC4RB_VAULT_URL#'
+
+: INC PCK.ITPA_SHARED.PUB.INCLUDE.ATTACH
+
+!  login using Username/password
+:  IF &UC4RB_VAULT_TOKEN# EQ "--10" OR ""
+       WRITE-HOST "INFO: Login into Vault using username/password .."
+!      Password Decryption
+:      SET &UC4RB_ENCRYPTED_PASSWORD_TMP# = "&UC4RB_VAULT_PASWD#"
+:      INC PCK.ITPA_SHARED.PRV.INCLUDE.DECRYPT_PASSWORD
+:      SET &LOGIN_CMD# = "vault login &UC4RB_VAULT_OPTIONS# -token-only -method=userpass username=&UC4RB_VAULT_USER#"
+      $env:VAULT_TOKEN=&LOGIN_CMD# password=$UC4_DECRYPTED_PWD
+:  ELSE
+       WRITE-HOST "INFO: Login into Vault using token .."
+!      Token Decryption
+:      SET &UC4RB_ENCRYPTED_PASSWORD_TMP# = "&UC4RB_VAULT_TOKEN#"
+:      INC PCK.ITPA_SHARED.PRV.INCLUDE.DECRYPT_PASSWORD
+:      SET &LOGIN_CMD# ="vault login &UC4RB_VAULT_OPTIONS# -token-only token=$UC4_DECRYPTED_PWD"
+    $env:VAULT_TOKEN=&LOGIN_CMD#
+:  ENDIF
+:INCLUDE PCK.ITPA_SHARED.PRV.INCLUDE.CHECK_POWERSHELL_CMD@WINDOWS
+WRITE-HOST "INFO: Login succeeded .."
+]]></MSCRI>
+</SCRIPT>
+<DOCU_Docu state="1" type="text">
+<DOC/>
+</DOCU_Docu>
+</JOBI>
+</uc-export>
